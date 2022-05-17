@@ -5,9 +5,19 @@
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Runtime library</title>
-    <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="/src/index.ts"></script>
+    <script type="module">
+      /*
+        Browser support
+        Chrome and Edge support it from version 93
+        Firefox & Safari implementation in progress
+        Gecko: https://bugzilla.mozilla.org/show_bug.cgi?id=1720570
+        Webkit: https://bugs.webkit.org/show_bug.cgi?id=227967
+      */
+      import rupStyles from 'http://localhost:3300/rup-styles.css' assert { type: 'css' };
+      document.adoptedStyleSheets = [rupStyles];
+    </script>
     <style>
       *[slot] {
         border: 1px solid red;
@@ -17,13 +27,7 @@
   <body>
     <app-header>
       <!--START: LOGO Slot-->
-      <a
-        slot="logo"
-        id="ember3"
-        class="ember-view active rup-global-header__application-logo"
-        aria-label="Logo"
-        data-test-app-logo=""
-        href="#"
+      <a slot="logo" class="rup-global-header__application-logo" aria-label="Logo" data-test-app-logo="" href="#"
         ><svg
           class="rightfind-suite-gateway"
           width="129"
@@ -50,31 +54,20 @@
         data-test-main-menu="">
         <p id="rup-rfsg-main-menu-desc" class="rup-visually-hidden">The application's main menu</p>
         <a
-          id="ember4"
-          class="ember-view active rup-global-header__application-menu-item rup-global-header__application-menu-item--selected"
+          class="rup-global-header__application-menu-item rup-global-header__application-menu-item--selected"
           title="Dashboard"
           data-test-dashboard-link=""
           href="#"
           >Dashboard</a
         >
-        <a
-          id="ember5"
-          class="ember-view rup-global-header__application-menu-item"
-          title="Libraries"
-          data-test-libraries-link=""
-          href="#"
+        <a class="rup-global-header__application-menu-item" title="Libraries" data-test-libraries-link="" href="#"
           >Libraries</a
         >
       </nav>
       <!--END: APP MENU Slot-->
       <!--START: LOCAL CONTROLS Slot-->
       <div slot="local-controls" class="rup-global-header__local-controls">
-        <a
-          id="ember6"
-          class="ember-view rup-global-header__local-controls-link"
-          title="Cart"
-          data-test-shopping-cart-link=""
-          href="#">
+        <a class="rup-global-header__local-controls-link" title="Cart" data-test-shopping-cart-link="" href="#">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="fill-current w-5 h-5">
             <path
               class="primary"

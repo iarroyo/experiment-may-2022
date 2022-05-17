@@ -1,14 +1,20 @@
 import { html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
+import cssModule from 'http://localhost:3300/rup-styles.css' assert { type: 'css' };
 
 /**
  * Header element.
  *
- * @slot - This element has a slot
- * @csspart button - The button
+ * @slot logo - Slot for the logo
+ * @slot search-control - Slot for the search control component
+ * @slot app-menu - Slot for the app menu
+ * @slot local-controls - Slot for the local controls
+ * @slot user-menu - Slot for the user menu
  */
 @customElement('app-header')
 export class AppHeader extends LitElement {
+  static styles = [cssModule];
+
   @state()
   private showAppSwitcher = false;
 
@@ -18,6 +24,7 @@ export class AppHeader extends LitElement {
 
   render() {
     return html`
+      <!--
       <style>
         /* 
         We are importing it just for demo purposes, there are few options we may take for that
@@ -26,6 +33,7 @@ export class AppHeader extends LitElement {
         */
         @import 'styles.css';
       </style>
+  -->
       <!-- To future investigation: spread attrs operator -> https://github.com/lit/lit/pull/1960 -->
       <header class="rup-global-header">
         <div>
@@ -80,7 +88,7 @@ export class AppHeader extends LitElement {
                     This shows the CCC Applications that you have access to. They will open in a new Tab.
                   </p>
                   <div>
-                    <span class="rup-global-header__app-switcher-options-label"> RightFind Suite </span>
+                    <span class="rup-global-header__app-switcher-options-label"> RightFind Suite</span>
                     <ul>
                       <li>
                         <a
