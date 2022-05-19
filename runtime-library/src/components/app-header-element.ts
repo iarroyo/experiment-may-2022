@@ -76,8 +76,7 @@ export class AppHeader extends LitElement {
                       <li>
                         <a
                           href="http://localhost:8080/ember"
-                          title="Open RightFind Navigate in a new tab"
-                          target="_blank"
+                          title="Open Ember APP in a new tab"
                           rel="noopener noreferrer">
                           <img src="http://localhost:8080/cdnassets/ember.svg" />
                         </a>
@@ -85,8 +84,7 @@ export class AppHeader extends LitElement {
                       <li>
                         <a
                           href="http://localhost:8080/react"
-                          title="Open RightFind Navigate in a new tab"
-                          target="_blank"
+                          title="Open React APP in a new tab"
                           rel="noopener noreferrer">
                           <img width="60" src="http://localhost:8080/cdnassets/react.png" />
                         </a>

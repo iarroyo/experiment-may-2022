@@ -48,5 +48,10 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <!-- Executing seed to have some data to play with -->
+    <script type="module">
+      import seed from 'http://localhost:8080/cdnassets/seed.js';
+      seed();
+    </script>
   </body>
 </html>

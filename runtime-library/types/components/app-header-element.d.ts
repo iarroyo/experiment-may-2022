@@ -1,9 +1,6 @@
 import { LitElement } from 'lit';
 /**
  * Header element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
  */
 export declare class AppHeader extends LitElement {
     private showAppSwitcher;

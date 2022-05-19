@@ -38,6 +38,12 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Executing seed to have some data to play with -->
+    <script type="module">
+      import seed from 'http://localhost:8080/cdnassets/seed.js';
+      seed();
+    </script>
+
     {{content-for "body-footer"}}
   </body>
 </html>
