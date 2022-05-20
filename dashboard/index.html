@@ -77,6 +77,76 @@
         <!--END: USER MENU Slot-->
       </div>
     </app-header>
+    <app-dialog>
+      <div id="slot-dialog" slot='dialog' class="visuallyhidden">
+        <div
+          class='rup-dialog'
+          role='dialog'
+          aria-labelledby='dialog1_label'
+          aria-describedby='dialog1_desc'
+          aria-modal='true'
+        >
+          <header class='rup-dialog__title'>
+            <h1 id='dialog1_label'>Added to cart</h1>
+            <button
+              id="dissmissButton"
+              class='rup-dialog__close rup-icon-btn rup-icon-btn--neutral'
+              type='button'>
+              <svg
+                viewBox='0 0 24 24'
+                xmlns='http://www.w3.org/2000/svg'
+                class='icon-clear'
+              >
+                <path
+                  class='primary'
+                  fill-rule='evenodd'
+                  clip-rule='evenodd'
+                  d='M4.293 4.293a1 1 0 011.414 0L12 10.586l6.293-6.293a1 1 0 111.414 1.414L13.414 12l6.293 6.293a1 1 0 01-1.414 1.414L12 13.414l-6.293 6.293a1 1 0 01-1.414-1.414L10.586 12 4.293 5.707a1 1 0 010-1.414z'
+                >
+                </path>
+              </svg>
+            </button>
+          </header>
+          <div class='rup-dialog__content'>
+            <ul id="cart-items" class='divide-y-2 divide-gray-100 p-2'></ul>
+          </div>
+          <footer class='rup-dialog__controls gap-x-2'>
+            <a
+              class='px-5 py-2 text-indigo-700 transition-colors duration-150 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100'
+              href='/checkout'
+            >Proceed to checkout</a>
+            <a
+              class='px-5 py-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700'
+              href='/checkout'
+            >Buy Now</a>
+          </footer>
+        </div>
+      </div>
+    </app-dialog>
+    <script type="text/javascript">
+      const cartListUL = document.querySelector('ul#cart-items');
+      const cartItems = JSON.parse(localStorage.getItem('cart'));
+      const cartItemsLI = cartItems.map(item => {
+        const li = document.createElement('li');
+        li.classList = 'flex justify-between items-center p-3 rounded hover:rounded hover:bg-indigo-600 hover:text-indigo-200 listItem';
+        li.append(item.name);
+        return li;
+      }); 
+
+      cartListUL.append(...cartItemsLI);
+      const slotDialog = document.querySelector('div#slot-dialog');
+      
+      const appDialog = document.querySelector('app-dialog');
+      const cartButton = document.querySelector('#cartButton');
+      const dissmissButton = document.querySelector('#dissmissButton');
+      cartButton.onclick = () => { 
+        slotDialog.classList = '';
+        appDialog.showModal()
+      };
+      dissmissButton.onclick = () => {
+        appDialog.close();
+      } 
+    </script>
     <div class="bg-gray-50 p-5 mb-5">
         <h3 class="text-gray-700 text-3xl font-medium">Dashboard</h3>
     </div>

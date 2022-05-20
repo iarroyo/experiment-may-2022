@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Runtime library</title>
     <link rel="stylesheet" href="http://localhost:8080/cdnassets/rup-styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <!-- 
     <script src="https://cdn.tailwindcss.com"></script>
+    -->
     <script type="module" src="/src/index.ts"></script>
     <style>
       *[slot] {
@@ -87,6 +90,17 @@
         <!--END: USER MENU Slot-->
       </div>
     </app-header>
+    <style>
+      /* custom element is unregistered */
+      app-dialog:not(:defined) {
+        display: none;
+      }
+
+      /* custom element gets registered */
+      app-dialog:defined {
+        display: block;
+      }
+    </style>
     <app-dialog>
       <div
         slot="dialog"
@@ -115,14 +129,16 @@
       </div>
     </app-dialog>
     <script type="text/javascript">
-      const appDialog = document.querySelector('app-dialog');
-      const cartButton = document.querySelector('#cartButton');
-      const closeButton = document.querySelector('#closeButton');
-      const dissmissButton = document.querySelector('#dissmissButton');
-      const alertButton = document.querySelector('#alertButton');
-      cartButton.onclick = () => appDialog.showModal();
-      closeButton.onclick = dissmissButton.onclick = () => appDialog.close();
-      alertButton.onclick = () => alert('whatever');
+      window.onload = () => {
+        const appDialog = document.querySelector('app-dialog');
+        const cartButton = document.querySelector('#cartButton');
+        const closeButton = document.querySelector('#closeButton');
+        const dissmissButton = document.querySelector('#dissmissButton');
+        const alertButton = document.querySelector('#alertButton');
+        cartButton.onclick = () => appDialog.showModal();
+        closeButton.onclick = dissmissButton.onclick = () => appDialog.close();
+        alertButton.onclick = () => alert('whatever');
+      };
     </script>
   </body>
 </html>

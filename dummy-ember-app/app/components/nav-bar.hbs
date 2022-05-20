@@ -60,7 +60,7 @@
       title='Cart'
       data-test-shopping-cart-link=''
       href='#'
-      {{on 'click' this.openModal}}
+      {{on 'click' this.openCartModal}}
     >
       <svg
         viewBox='0 0 24 24'
@@ -96,3 +96,6 @@
     <!--END: USER MENU Slot-->
   </div>
 {{/in-element}}
+{{#if this.isOpenCart}}
+  <ModalDialog @onClose={{this.onCloseCartModal}} />
+{{/if}}

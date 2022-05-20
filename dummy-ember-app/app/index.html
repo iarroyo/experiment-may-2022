@@ -23,6 +23,12 @@
   </head>
   <body>
     {{content-for "body"}}
+
+    <!-- Executing seed to have some data to play with -->
+    <script
+      type="module"
+      src="http://localhost:8080/cdnassets/seed.js"
+    ></script>
     <!-- Load runtime library first -->
     <script
       type="module"
@@ -39,12 +45,6 @@
     <script src="{{rootURL}}assets/dummy-ember-app.js"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Executing seed to have some data to play with -->
-    <script type="module">
-      import seed from 'http://localhost:8080/cdnassets/seed.js';
-      seed();
-    </script>
 
     {{content-for "body-footer"}}
   </body>

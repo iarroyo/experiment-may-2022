@@ -651,6 +651,17 @@ function i(i2, n2) {
  */
 var n;
 ((n = window.HTMLSlotElement) === null || n === void 0 ? void 0 : n.prototype.assignedElements) != null ? (o2, n2) => o2.assignedElements(n2) : (o2, n2) => o2.assignedNodes(n2).filter((o3) => o3.nodeType === Node.ELEMENT_NODE);
+const lut = [];
+for (let i2 = 0; i2 < 256; i2++) {
+  lut[i2] = (i2 < 16 ? "0" : "") + i2.toString(16);
+}
+function generate() {
+  const d0 = Math.random() * 4294967295 | 0;
+  const d1 = Math.random() * 4294967295 | 0;
+  const d2 = Math.random() * 4294967295 | 0;
+  const d3 = Math.random() * 4294967295 | 0;
+  return lut[d0 & 255] + lut[d0 >> 8 & 255] + lut[d0 >> 16 & 255] + lut[d0 >> 24 & 255] + "-" + lut[d1 & 255] + lut[d1 >> 8 & 255] + "-" + lut[d1 >> 16 & 15 | 64] + lut[d1 >> 24 & 255] + "-" + lut[d2 & 63 | 128] + lut[d2 >> 8 & 255] + "-" + lut[d2 >> 16 & 255] + lut[d2 >> 24 & 255] + lut[d3 & 255] + lut[d3 >> 8 & 255] + lut[d3 >> 16 & 255] + lut[d3 >> 24 & 255];
+}
 var __defProp$1 = Object.defineProperty;
 var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
 var __decorateClass$1 = (decorators, target, key, kind) => {
@@ -662,13 +673,25 @@ var __decorateClass$1 = (decorators, target, key, kind) => {
     __defProp$1(target, key, result);
   return result;
 };
+const UUIDV4 = generate();
 let AppHeader = class extends s {
   constructor() {
     super(...arguments);
     this.showAppSwitcher = false;
+    this.onClickOutside = (event) => {
+      if (typeof event.composedPath === "function" && !event.composedPath().includes(this.navBarAppSwitcher)) {
+        this.showAppSwitcher = false;
+        document.documentElement.removeEventListener("click", this.onClickOutside);
+      }
+    };
   }
   showHideAppSwitcher() {
     this.showAppSwitcher = !this.showAppSwitcher;
+    if (this.showAppSwitcher) {
+      setTimeout(() => document.documentElement.addEventListener("click", this.onClickOutside), 0);
+    } else {
+      document.documentElement.removeEventListener("click", this.onClickOutside);
+    }
   }
   render() {
     console.log("Rendering app-header");
@@ -720,6 +743,7 @@ let AppHeader = class extends s {
                   </svg>
                 </button>
                 <nav
+                  id="nav-app-switcher-${UUIDV4}"
                   class="rup-global-header__app-switcher-options ${this.showAppSwitcher ? "" : "visuallyhidden"}"
                   aria-labelledby="rup-switcher-app"
                   aria-describedby="rup-gc-switcher-desc"
@@ -761,6 +785,9 @@ let AppHeader = class extends s {
 __decorateClass$1([
   t()
 ], AppHeader.prototype, "showAppSwitcher", 2);
+__decorateClass$1([
+  i(`#nav-app-switcher-${UUIDV4}`)
+], AppHeader.prototype, "navBarAppSwitcher", 2);
 AppHeader = __decorateClass$1([
   n$1("app-header")
 ], AppHeader);
