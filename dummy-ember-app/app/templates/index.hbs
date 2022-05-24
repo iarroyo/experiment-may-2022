@@ -1,33 +1,42 @@
-<div class="search-wrapper">
-    {{#if @model.featureFlags.isSearch1}}
-    <div class="search1">
-        <label>Search 1</label>
-        <input type="text" placeholder="Search 2"/>
+<div class='search-wrapper'>
+  {{#if @model.featureFlags.isSearch1}}
+    <div class='search1'>
+      <label>Search 1</label>
+      <input type='text' placeholder='Search 2' />
     </div>
-    {{/if}}
+  {{/if}}
 
-    {{#if @model.featureFlags.isSearch2}}
-    <div class="search2">
-        <label>Search 2</label>
-        <input type="text" placeholder="Search 2"/>
+  {{#if @model.featureFlags.isSearch2}}
+    <div class='search2'>
+      <label>Search 2</label>
+      <input type='text' placeholder='Search 2' />
     </div>
-    {{/if}}
+  {{/if}}
 </div>
-
-<div class="content-wrapper">
-    {{#if @model.featureFlags.isSide1}}
-    <aside class="aside1">
-        Test
+<!--
+<div class='content-wrapper'>
+  {{#if @model.featureFlags.isSide1}}
+    <aside class='aside1'>
+      Test
     </aside>
-    {{/if}}
+  {{/if}}
 
-    <section class="content">
-        <Products @products={{@model.products}}></Products>
-    </section>
+  <section class='content'>
+    <Products @products={{@model.products}} />
+  </section>
 
-    {{#if @model.featureFlags.isSide2}}
-    <aside class="aside1">
-        Test 2
+  {{#if @model.featureFlags.isSide2}}
+    <aside class='aside1'>
+      Test 2
     </aside>
-    {{/if}}
+  {{/if}}
+</div>
+-->
+<div>
+  <button type='button' {{on 'click' this.loadComponent}}>Load Component</button>
+  {{#if this.running}}
+    <div>Loading...</div>
+  {{else if this.TheComponent}}
+    <this.TheComponent />
+  {{/if}}
 </div>

@@ -3,9 +3,9 @@ import { action } from '@ember/object';
 
 export default class NavBar extends Component {
   @action
-  openModal(){
-      const appDialog = document.querySelector('app-dialog'); 
-      appDialog.showModal();
+  openModal() {
+    const appDialog = document.querySelector('app-dialog');
+    appDialog.showModal();
   }
 
   get appHeaderContainer() {
