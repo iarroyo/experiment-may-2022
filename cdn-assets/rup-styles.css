@@ -6344,7 +6344,15 @@ app-dialog:not(:defined) {
   display: none;
 }
 
+app-header:not(:defined) {
+  display: none;
+}
+
 /* custom element gets registered */
 app-dialog:defined {
+  display: block;
+}
+
+app-header:defined {
   display: block;
 }
