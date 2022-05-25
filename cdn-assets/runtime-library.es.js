@@ -37,7 +37,16 @@ class s$3 {
     return this.cssText;
   }
 }
-const o$3 = (t2) => new s$3(typeof t2 == "string" ? t2 : t2 + "", e$3), i$2 = (e2, n2) => {
+const o$4 = (t2) => new s$3(typeof t2 == "string" ? t2 : t2 + "", e$3), r$2 = (t2, ...n2) => {
+  const o2 = t2.length === 1 ? t2[0] : n2.reduce((e2, n3, s2) => e2 + ((t3) => {
+    if (t3._$cssResult$ === true)
+      return t3.cssText;
+    if (typeof t3 == "number")
+      return t3;
+    throw Error("Value passed to 'css' function must be a 'css' function result: " + t3 + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
+  })(n3) + t2[s2 + 1], t2[0]);
+  return new s$3(o2, e$3);
+}, i$3 = (e2, n2) => {
   t$2 ? e2.adoptedStyleSheets = n2.map((t2) => t2 instanceof CSSStyleSheet ? t2 : t2.styleSheet) : n2.forEach((t2) => {
     const n3 = document.createElement("style"), s2 = window.litNonce;
     s2 !== void 0 && n3.setAttribute("nonce", s2), n3.textContent = t2.cssText, e2.appendChild(n3);
@@ -46,7 +55,7 @@ const o$3 = (t2) => new s$3(typeof t2 == "string" ? t2 : t2 + "", e$3), i$2 = (e
   let e2 = "";
   for (const n2 of t3.cssRules)
     e2 += n2.cssText;
-  return o$3(e2);
+  return o$4(e2);
 })(t2) : t2;
 /**
  * @license
@@ -54,7 +63,7 @@ const o$3 = (t2) => new s$3(typeof t2 == "string" ? t2 : t2 + "", e$3), i$2 = (e
  * SPDX-License-Identifier: BSD-3-Clause
  */
 var s$2;
-const e$2 = window.trustedTypes, r$1 = e$2 ? e$2.emptyScript : "", h$1 = window.reactiveElementPolyfillSupport, o$2 = { toAttribute(t2, i2) {
+const e$2 = window.trustedTypes, r$1 = e$2 ? e$2.emptyScript : "", h$1 = window.reactiveElementPolyfillSupport, o$3 = { toAttribute(t2, i2) {
   switch (i2) {
     case Boolean:
       t2 = t2 ? r$1 : null;
@@ -82,7 +91,7 @@ const e$2 = window.trustedTypes, r$1 = e$2 ? e$2.emptyScript : "", h$1 = window.
       }
   }
   return s2;
-} }, n$4 = (t2, i2) => i2 !== t2 && (i2 == i2 || t2 == t2), l$2 = { attribute: true, type: String, converter: o$2, reflect: false, hasChanged: n$4 };
+} }, n$4 = (t2, i2) => i2 !== t2 && (i2 == i2 || t2 == t2), l$3 = { attribute: true, type: String, converter: o$3, reflect: false, hasChanged: n$4 };
 class a$1 extends HTMLElement {
   constructor() {
     super(), this._$Et = /* @__PURE__ */ new Map(), this.isUpdatePending = false, this.hasUpdated = false, this._$Ei = null, this.o();
@@ -99,7 +108,7 @@ class a$1 extends HTMLElement {
       e2 !== void 0 && (this._$Eu.set(e2, s2), t2.push(e2));
     }), t2;
   }
-  static createProperty(t2, i2 = l$2) {
+  static createProperty(t2, i2 = l$3) {
     if (i2.state && (i2.attribute = false), this.finalize(), this.elementProperties.set(t2, i2), !i2.noAccessor && !this.prototype.hasOwnProperty(t2)) {
       const s2 = typeof t2 == "symbol" ? Symbol() : "__" + t2, e2 = this.getPropertyDescriptor(t2, s2, i2);
       e2 !== void 0 && Object.defineProperty(this.prototype, t2, e2);
@@ -114,7 +123,7 @@ class a$1 extends HTMLElement {
     }, configurable: true, enumerable: true };
   }
   static getPropertyOptions(t2) {
-    return this.elementProperties.get(t2) || l$2;
+    return this.elementProperties.get(t2) || l$3;
   }
   static finalize() {
     if (this.hasOwnProperty("finalized"))
@@ -162,7 +171,7 @@ class a$1 extends HTMLElement {
   createRenderRoot() {
     var t2;
     const s2 = (t2 = this.shadowRoot) !== null && t2 !== void 0 ? t2 : this.attachShadow(this.constructor.shadowRootOptions);
-    return i$2(s2, this.constructor.elementStyles), s2;
+    return i$3(s2, this.constructor.elementStyles), s2;
   }
   connectedCallback() {
     var t2;
@@ -183,11 +192,11 @@ class a$1 extends HTMLElement {
   attributeChangedCallback(t2, i2, s2) {
     this._$AK(t2, s2);
   }
-  _$ES(t2, i2, s2 = l$2) {
+  _$ES(t2, i2, s2 = l$3) {
     var e2, r2;
     const h2 = this.constructor._$Eh(t2, s2);
     if (h2 !== void 0 && s2.reflect === true) {
-      const n2 = ((r2 = (e2 = s2.converter) === null || e2 === void 0 ? void 0 : e2.toAttribute) !== null && r2 !== void 0 ? r2 : o$2.toAttribute)(i2, s2.type);
+      const n2 = ((r2 = (e2 = s2.converter) === null || e2 === void 0 ? void 0 : e2.toAttribute) !== null && r2 !== void 0 ? r2 : o$3.toAttribute)(i2, s2.type);
       this._$Ei = t2, n2 == null ? this.removeAttribute(h2) : this.setAttribute(h2, n2), this._$Ei = null;
     }
   }
@@ -195,7 +204,7 @@ class a$1 extends HTMLElement {
     var s2, e2, r2;
     const h2 = this.constructor, n2 = h2._$Eu.get(t2);
     if (n2 !== void 0 && this._$Ei !== n2) {
-      const t3 = h2.getPropertyOptions(n2), l2 = t3.converter, a2 = (r2 = (e2 = (s2 = l2) === null || s2 === void 0 ? void 0 : s2.fromAttribute) !== null && e2 !== void 0 ? e2 : typeof l2 == "function" ? l2 : null) !== null && r2 !== void 0 ? r2 : o$2.fromAttribute;
+      const t3 = h2.getPropertyOptions(n2), l2 = t3.converter, a2 = (r2 = (e2 = (s2 = l2) === null || s2 === void 0 ? void 0 : s2.fromAttribute) !== null && e2 !== void 0 ? e2 : typeof l2 == "function" ? l2 : null) !== null && r2 !== void 0 ? r2 : o$3.fromAttribute;
       this._$Ei = n2, this[n2] = a2(i2, t3.type), this._$Ei = null;
     }
   }
@@ -269,7 +278,7 @@ a$1.finalized = true, a$1.elementProperties = /* @__PURE__ */ new Map(), a$1.ele
  * SPDX-License-Identifier: BSD-3-Clause
  */
 var t$1;
-const i$1 = globalThis.trustedTypes, s$1 = i$1 ? i$1.createPolicy("lit-html", { createHTML: (t2) => t2 }) : void 0, e$1 = `lit$${(Math.random() + "").slice(9)}$`, o$1 = "?" + e$1, n$3 = `<${o$1}>`, l$1 = document, h = (t2 = "") => l$1.createComment(t2), r = (t2) => t2 === null || typeof t2 != "object" && typeof t2 != "function", d = Array.isArray, u = (t2) => {
+const i$2 = globalThis.trustedTypes, s$1 = i$2 ? i$2.createPolicy("lit-html", { createHTML: (t2) => t2 }) : void 0, e$1 = `lit$${(Math.random() + "").slice(9)}$`, o$2 = "?" + e$1, n$3 = `<${o$2}>`, l$2 = document, h = (t2 = "") => l$2.createComment(t2), r = (t2) => t2 === null || typeof t2 != "object" && typeof t2 != "function", d = Array.isArray, u = (t2) => {
   var i2;
   return d(t2) || typeof ((i2 = t2) === null || i2 === void 0 ? void 0 : i2[Symbol.iterator]) == "function";
 }, c = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, v = /-->/g, a = />/g, f = />|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g, _ = /'/g, m = /"/g, g = /^(?:script|style|textarea|title)$/i, p = (t2) => (i2, ...s2) => ({ _$litType$: t2, strings: i2, values: s2 }), $ = p(1), b = Symbol.for("lit-noChange"), w = Symbol.for("lit-nothing"), T = /* @__PURE__ */ new WeakMap(), x = (t2, i2, s2) => {
@@ -281,7 +290,7 @@ const i$1 = globalThis.trustedTypes, s$1 = i$1 ? i$1.createPolicy("lit-html", { 
     n2._$litPart$ = l2 = new N(i2.insertBefore(h(), t3), t3, void 0, s2 != null ? s2 : {});
   }
   return l2._$AI(t2), l2;
-}, A = l$1.createTreeWalker(l$1, 129, null, false), C = (t2, i2) => {
+}, A = l$2.createTreeWalker(l$2, 129, null, false), C = (t2, i2) => {
   const o2 = t2.length - 1, l2 = [];
   let h2, r2 = i2 === 2 ? "<svg>" : "", d2 = c;
   for (let i3 = 0; i3 < o2; i3++) {
@@ -326,14 +335,14 @@ class E {
         if (g.test(l2.tagName)) {
           const t3 = l2.textContent.split(e$1), s3 = t3.length - 1;
           if (s3 > 0) {
-            l2.textContent = i$1 ? i$1.emptyScript : "";
+            l2.textContent = i$2 ? i$2.emptyScript : "";
             for (let i2 = 0; i2 < s3; i2++)
               l2.append(t3[i2], h()), A.nextNode(), c2.push({ type: 2, index: ++r2 });
             l2.append(t3[s3], h());
           }
         }
       } else if (l2.nodeType === 8)
-        if (l2.data === o$1)
+        if (l2.data === o$2)
           c2.push({ type: 2, index: r2 });
         else {
           let t3 = -1;
@@ -344,7 +353,7 @@ class E {
     }
   }
   static createElement(t2, i2) {
-    const s2 = l$1.createElement("template");
+    const s2 = l$2.createElement("template");
     return s2.innerHTML = t2, s2;
   }
 }
@@ -368,7 +377,7 @@ class V {
   }
   p(t2) {
     var i2;
-    const { el: { content: s2 }, parts: e2 } = this._$AD, o2 = ((i2 = t2 == null ? void 0 : t2.creationScope) !== null && i2 !== void 0 ? i2 : l$1).importNode(s2, true);
+    const { el: { content: s2 }, parts: e2 } = this._$AD, o2 = ((i2 = t2 == null ? void 0 : t2.creationScope) !== null && i2 !== void 0 ? i2 : l$2).importNode(s2, true);
     A.currentNode = o2;
     let n2 = A.nextNode(), h2 = 0, r2 = 0, d2 = e2[0];
     for (; d2 !== void 0; ) {
@@ -416,7 +425,7 @@ class N {
     this._$AH !== t2 && (this._$AR(), this._$AH = this.M(t2));
   }
   $(t2) {
-    this._$AH !== w && r(this._$AH) ? this._$AA.nextSibling.data = t2 : this.k(l$1.createTextNode(t2)), this._$AH = t2;
+    this._$AH !== w && r(this._$AH) ? this._$AA.nextSibling.data = t2 : this.k(l$2.createTextNode(t2)), this._$AH = t2;
   }
   T(t2) {
     var i2;
@@ -487,7 +496,7 @@ class M extends S {
     this.element[this.name] = t2 === w ? void 0 : t2;
   }
 }
-const k = i$1 ? i$1.emptyScript : "";
+const k = i$2 ? i$2.emptyScript : "";
 class H extends S {
   constructor() {
     super(...arguments), this.type = 4;
@@ -530,7 +539,7 @@ z == null || z(E, N), ((t$1 = globalThis.litHtmlVersions) !== null && t$1 !== vo
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-var l, o;
+var l$1, o$1;
 class s extends a$1 {
   constructor() {
     super(...arguments), this.renderOptions = { host: this }, this._$Dt = void 0;
@@ -556,10 +565,10 @@ class s extends a$1 {
     return b;
   }
 }
-s.finalized = true, s._$litElement$ = true, (l = globalThis.litElementHydrateSupport) === null || l === void 0 || l.call(globalThis, { LitElement: s });
+s.finalized = true, s._$litElement$ = true, (l$1 = globalThis.litElementHydrateSupport) === null || l$1 === void 0 || l$1.call(globalThis, { LitElement: s });
 const n$2 = globalThis.litElementPolyfillSupport;
 n$2 == null || n$2({ LitElement: s });
-((o = globalThis.litElementVersions) !== null && o !== void 0 ? o : globalThis.litElementVersions = []).push("3.2.0");
+((o$1 = globalThis.litElementVersions) !== null && o$1 !== void 0 ? o$1 : globalThis.litElementVersions = []).push("3.2.0");
 /**
  * @license
  * Copyright 2017 Google LLC
@@ -576,7 +585,7 @@ const n$1 = (n2) => (e2) => typeof e2 == "function" ? ((n3, e3) => (window.custo
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const i = (i2, e2) => e2.kind === "method" && e2.descriptor && !("value" in e2.descriptor) ? __spreadProps(__spreadValues({}, e2), { finisher(n2) {
+const i$1 = (i2, e2) => e2.kind === "method" && e2.descriptor && !("value" in e2.descriptor) ? __spreadProps(__spreadValues({}, e2), { finisher(n2) {
   n2.createProperty(e2.key, i2);
 } }) : { kind: "field", key: Symbol(), placement: "own", descriptor: {}, originalKey: e2.key, initializer() {
   typeof e2.initializer == "function" && (this[e2.key] = e2.initializer.call(this));
@@ -586,7 +595,7 @@ const i = (i2, e2) => e2.kind === "method" && e2.descriptor && !("value" in e2.d
 function e(e2) {
   return (n2, t2) => t2 !== void 0 ? ((i2, e3, n3) => {
     e3.constructor.createProperty(n3, i2);
-  })(e2, n2, t2) : i(e2, n2);
+  })(e2, n2, t2) : i$1(e2, n2);
 }
 /**
  * @license
@@ -598,29 +607,91 @@ function t(t2) {
 }
 /**
  * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+const o = ({ finisher: e2, descriptor: t2 }) => (o2, n2) => {
+  var r2;
+  if (n2 === void 0) {
+    const n3 = (r2 = o2.originalKey) !== null && r2 !== void 0 ? r2 : o2.key, i2 = t2 != null ? { kind: "method", placement: "prototype", key: n3, descriptor: t2(o2.key) } : __spreadProps(__spreadValues({}, o2), { key: n3 });
+    return e2 != null && (i2.finisher = function(t3) {
+      e2(t3, n3);
+    }), i2;
+  }
+  {
+    const r3 = o2.constructor;
+    t2 !== void 0 && Object.defineProperty(o2, n2, t2(n2)), e2 == null || e2(r3, n2);
+  }
+};
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+function i(i2, n2) {
+  return o({ descriptor: (o2) => {
+    const t2 = { get() {
+      var o3, n3;
+      return (n3 = (o3 = this.renderRoot) === null || o3 === void 0 ? void 0 : o3.querySelector(i2)) !== null && n3 !== void 0 ? n3 : null;
+    }, enumerable: true, configurable: true };
+    if (n2) {
+      const n3 = typeof o2 == "symbol" ? Symbol() : "__" + o2;
+      t2.get = function() {
+        var o3, t3;
+        return this[n3] === void 0 && (this[n3] = (t3 = (o3 = this.renderRoot) === null || o3 === void 0 ? void 0 : o3.querySelector(i2)) !== null && t3 !== void 0 ? t3 : null), this[n3];
+      };
+    }
+    return t2;
+  } });
+}
+/**
+ * @license
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
 var n;
 ((n = window.HTMLSlotElement) === null || n === void 0 ? void 0 : n.prototype.assignedElements) != null ? (o2, n2) => o2.assignedElements(n2) : (o2, n2) => o2.assignedNodes(n2).filter((o3) => o3.nodeType === Node.ELEMENT_NODE);
-var __defProp2 = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __decorateClass = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+const lut = [];
+for (let i2 = 0; i2 < 256; i2++) {
+  lut[i2] = (i2 < 16 ? "0" : "") + i2.toString(16);
+}
+function generate() {
+  const d0 = Math.random() * 4294967295 | 0;
+  const d1 = Math.random() * 4294967295 | 0;
+  const d2 = Math.random() * 4294967295 | 0;
+  const d3 = Math.random() * 4294967295 | 0;
+  return lut[d0 & 255] + lut[d0 >> 8 & 255] + lut[d0 >> 16 & 255] + lut[d0 >> 24 & 255] + "-" + lut[d1 & 255] + lut[d1 >> 8 & 255] + "-" + lut[d1 >> 16 & 15 | 64] + lut[d1 >> 24 & 255] + "-" + lut[d2 & 63 | 128] + lut[d2 >> 8 & 255] + "-" + lut[d2 >> 16 & 255] + lut[d2 >> 24 & 255] + lut[d3 & 255] + lut[d3 >> 8 & 255] + lut[d3 >> 16 & 255] + lut[d3 >> 24 & 255];
+}
+var __defProp$1 = Object.defineProperty;
+var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
+var __decorateClass$1 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$1(target, key) : target;
   for (var i2 = decorators.length - 1, decorator; i2 >= 0; i2--)
     if (decorator = decorators[i2])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp2(target, key, result);
+    __defProp$1(target, key, result);
   return result;
 };
+const UUIDV4 = generate();
 let AppHeader = class extends s {
   constructor() {
     super(...arguments);
     this.showAppSwitcher = false;
+    this.onClickOutside = (event) => {
+      if (typeof event.composedPath === "function" && !event.composedPath().includes(this.navBarAppSwitcher)) {
+        this.showAppSwitcher = false;
+        document.documentElement.removeEventListener("click", this.onClickOutside);
+      }
+    };
   }
   showHideAppSwitcher() {
     this.showAppSwitcher = !this.showAppSwitcher;
+    if (this.showAppSwitcher) {
+      setTimeout(() => document.documentElement.addEventListener("click", this.onClickOutside), 0);
+    } else {
+      document.documentElement.removeEventListener("click", this.onClickOutside);
+    }
   }
   render() {
     console.log("Rendering app-header");
@@ -672,6 +743,7 @@ let AppHeader = class extends s {
                   </svg>
                 </button>
                 <nav
+                  id="nav-app-switcher-${UUIDV4}"
                   class="rup-global-header__app-switcher-options ${this.showAppSwitcher ? "" : "visuallyhidden"}"
                   aria-labelledby="rup-switcher-app"
                   aria-describedby="rup-gc-switcher-desc"
@@ -685,8 +757,7 @@ let AppHeader = class extends s {
                       <li>
                         <a
                           href="http://localhost:8080/ember"
-                          title="Open RightFind Navigate in a new tab"
-                          target="_blank"
+                          title="Open Ember APP in a new tab"
                           rel="noopener noreferrer">
                           <img src="http://localhost:8080/cdnassets/ember.svg" />
                         </a>
@@ -694,8 +765,7 @@ let AppHeader = class extends s {
                       <li>
                         <a
                           href="http://localhost:8080/react"
-                          title="Open RightFind Navigate in a new tab"
-                          target="_blank"
+                          title="Open React APP in a new tab"
                           rel="noopener noreferrer">
                           <img width="60" src="http://localhost:8080/cdnassets/react.png" />
                         </a>
@@ -712,11 +782,65 @@ let AppHeader = class extends s {
     `;
   }
 };
-__decorateClass([
+__decorateClass$1([
   t()
 ], AppHeader.prototype, "showAppSwitcher", 2);
-AppHeader = __decorateClass([
+__decorateClass$1([
+  i(`#nav-app-switcher-${UUIDV4}`)
+], AppHeader.prototype, "navBarAppSwitcher", 2);
+AppHeader = __decorateClass$1([
   n$1("app-header")
 ], AppHeader);
 console.log("Parsing app-header");
-export { AppHeader };
+/**
+ * @license
+ * Copyright 2018 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+const l = (l2) => l2 != null ? l2 : w;
+var __defProp2 = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __decorateClass = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+  for (var i2 = decorators.length - 1, decorator; i2 >= 0; i2--)
+    if (decorator = decorators[i2])
+      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+  if (kind && result)
+    __defProp2(target, key, result);
+  return result;
+};
+let AppDialog = class extends s {
+  handleClick({ target: dialog }) {
+    if (dialog.nodeName === "DIALOG") {
+      dialog.close("dismiss");
+    }
+  }
+  showModal() {
+    this.dialog.showModal();
+  }
+  close() {
+    this.dialog.close();
+  }
+  render() {
+    return $` <link rel="stylesheet" href="http://localhost:8080/cdnassets/rup-styles.css" />
+      <dialog id="app-dialog" open=${l(this.isOpen ? this.isOpen : void 0)} @click=${this.handleClick}>
+        <slot name="dialog"></slot>
+      </dialog>`;
+  }
+};
+AppDialog.styles = r$2`
+    dialog#app-dialog {
+      background: transparent;
+      padding: 100px;
+    }
+  `;
+__decorateClass([
+  e({ type: Boolean })
+], AppDialog.prototype, "isOpen", 2);
+__decorateClass([
+  i("#app-dialog")
+], AppDialog.prototype, "dialog", 2);
+AppDialog = __decorateClass([
+  n$1("app-dialog")
+], AppDialog);
+export { AppDialog, AppHeader };

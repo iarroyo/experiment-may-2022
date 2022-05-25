@@ -1,5 +1,8 @@
 import { html, LitElement } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement, query, state } from 'lit/decorators.js';
+import { v4 } from '@advanced-rest-client/uuid-generator';
+
+const UUIDV4 = v4();
 
 /**
  * Header element.
@@ -9,8 +12,23 @@ export class AppHeader extends LitElement {
   @state()
   private showAppSwitcher = false;
 
+  @query(`#nav-app-switcher-${UUIDV4}`)
+  navBarAppSwitcher!: HTMLElement;
+
+  onClickOutside = (event: Event) => {
+    if (typeof event.composedPath === 'function' && !event.composedPath().includes(this.navBarAppSwitcher)) {
+      this.showAppSwitcher = false;
+      document.documentElement.removeEventListener('click', this.onClickOutside);
+    }
+  };
+
   showHideAppSwitcher() {
     this.showAppSwitcher = !this.showAppSwitcher;
+    if (this.showAppSwitcher) {
+      setTimeout(() => document.documentElement.addEventListener('click', this.onClickOutside), 0);
+    } else {
+      document.documentElement.removeEventListener('click', this.onClickOutside);
+    }
   }
 
   render() {
@@ -63,6 +81,7 @@ export class AppHeader extends LitElement {
                   </svg>
                 </button>
                 <nav
+                  id="nav-app-switcher-${UUIDV4}"
                   class="rup-global-header__app-switcher-options ${this.showAppSwitcher ? '' : 'visuallyhidden'}"
                   aria-labelledby="rup-switcher-app"
                   aria-describedby="rup-gc-switcher-desc"
@@ -76,8 +95,7 @@ export class AppHeader extends LitElement {
                       <li>
                         <a
                           href="http://localhost:8080/ember"
-                          title="Open RightFind Navigate in a new tab"
-                          target="_blank"
+                          title="Open Ember APP in a new tab"
                           rel="noopener noreferrer">
                           <img src="http://localhost:8080/cdnassets/ember.svg" />
                         </a>
@@ -85,8 +103,7 @@ export class AppHeader extends LitElement {
                       <li>
                         <a
                           href="http://localhost:8080/react"
-                          title="Open RightFind Navigate in a new tab"
-                          target="_blank"
+                          title="Open React APP in a new tab"
                           rel="noopener noreferrer">
                           <img width="60" src="http://localhost:8080/cdnassets/react.png" />
                         </a>

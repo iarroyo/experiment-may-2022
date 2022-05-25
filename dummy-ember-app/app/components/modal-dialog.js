@@ -1,23 +1,27 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import { cached } from '@glimmer/tracking';
 
 const cartKey = 'cart';
 
 export default class ModalDialog extends Component {
+  @action
+  openModal() {
+    this.appDialog.showModal();
+  }
+  @action
+  closeModal() {
+    this.appDialog.close();
+    this.args.onClose();
+  }
 
-    @action
-    closeModal(){
-        const appDialog = document.querySelector('app-dialog'); 
-        appDialog.close();
-    }
+  get cartData() {
+    let retriveCartItems = localStorage.getItem(cartKey);
+    return (retriveCartItems = JSON.parse(retriveCartItems));
+  }
 
-    get cartData(){
-        let retrieveCartData;
-        let retriveCartItems = localStorage.getItem(cartKey);
-        return retrieveCartData = JSON.parse(retriveCartItems);
-    }
-
-    get appDialogModal() {
-        return document.querySelector('app-dialog');
-    }
+  @cached
+  get appDialog() {
+    return document.querySelector('app-dialog');
+  }
 }

@@ -23,6 +23,12 @@
   </head>
   <body>
     {{content-for "body"}}
+
+    <!-- Executing seed to have some data to play with -->
+    <script
+      type="module"
+      src="http://localhost:8080/cdnassets/seed.js"
+    ></script>
     <!-- Load runtime library first -->
     <script
       type="module"
